@@ -3,6 +3,11 @@ package com.appshell;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rnziparchive.RNZipArchivePackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.pusherman.networkinfo.RNNetworkInfoPackage;
+import com.rnfs.RNFSPackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -22,7 +27,13 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+          new MainReactPackage(),
+          new RNZipArchivePackage(),
+          new SplashScreenReactPackage(),
+          new RNNetworkInfoPackage(),
+          new RNFSPackage(),
+          new RNDeviceInfo(),
+          new AppReactPackage()
       );
     }
 

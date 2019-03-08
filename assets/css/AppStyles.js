@@ -47,10 +47,7 @@ const HeaderStyles = StyleSheet.create({
     position: 'absolute',
     top: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
     width: PR * 43,
-    height: PR * 43
-  },
-  modelBackBtn: {
-    left: 0,
+    height: PR * 43,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -73,8 +70,12 @@ const HeaderStyles = StyleSheet.create({
       }
     })
   },
-  modelRightBtn: {
-    right: 0
+  modelSetBtn: {
+    right: PR * 15
+  },
+  modelSetIcon: {
+    width: PR * 19,
+    height: PR * 18,
   }
 })
 

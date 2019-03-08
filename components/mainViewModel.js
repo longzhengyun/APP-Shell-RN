@@ -29,7 +29,7 @@ class MainViewModel extends Component {
 
     this.data = this.props.data;
     this.handleMessage = this.props.handleMessage;
-    this.onBackAction = this.props.onBackAction;
+    this.doAction = this.props.doAction;
   }
 
   render() {
@@ -37,7 +37,7 @@ class MainViewModel extends Component {
       <SafeAreaView style={MainStyles.webView}>
         <HeaderModel
           data={this.data.headerConfig}
-          onBackAction={this.onBackAction}
+          doAction={this.doAction}
         />
         <WebView
           ref='webView'

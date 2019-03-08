@@ -14,8 +14,7 @@ class TargetViewModel extends Component {
     super(props);
 
     this.data = this.props.data;
-    this.onBackAction = this.props.onBackAction;
-    this.onCloseAction = this.props.onCloseAction;
+    this.doAction = this.props.doAction;
   }
 
   render() {
@@ -23,8 +22,7 @@ class TargetViewModel extends Component {
       <SafeAreaView style={TargetViewStyles.targetViewModel}>
         <HeaderModel
           data={this.data.headerConfig}
-          onBackAction={this.onBackAction}
-          onCloseAction={this.onCloseAction}
+          doAction={this.doAction}
         />
         <WebView
           ref='webView'

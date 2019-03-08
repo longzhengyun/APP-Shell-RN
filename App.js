@@ -32,8 +32,7 @@ export default class App extends Component {
     super(props);
 
     this._onBackAndroid = this._onBackAndroid.bind(this);
-    this._onBackAction = this._onBackAction.bind(this);
-    this._onCloseAction = this._onCloseAction.bind(this);
+    this._doAction = this._doAction.bind(this);
 
     this._handleMessage = this._handleMessage.bind(this);
     this._goTarget = this._goTarget.bind(this);
@@ -171,6 +170,16 @@ export default class App extends Component {
     }
   }
 
+  _doAction(key) {
+    if (key === 'back') {
+      this._onBackAction(); // 执行回退方法
+    } else if (key === 'close') {
+      this._onCloseAction(); // 关闭第三方webView
+    } else {
+      console.log(key)
+    }
+  }
+
   _onBackAction() {
     if (this.state.targetViewConfig.showTargetView) { // 判断第三方webView是否显示
       if (this.state.targetViewConfig.canGoBack) { // 判断第三方webView是否能回退
@@ -238,16 +247,26 @@ export default class App extends Component {
 
       // 第三方webView配置
       if (message.targetViewConfig) {
+        let targetViewConfig = {
+          showTargetView: true,
+          headerConfig: {
+            title: message.targetViewConfig.title,
+            showBack: true,
+            showClose: true,
+            showLine: true
+          }
+        }
         if (message.targetViewConfig.jumpUrl && message.targetViewConfig.jumpUrl.indexOf('http') === 0) {
-          this.setState({
-            targetViewConfig: Object.assign({ showTargetView: true, htmlData: null }, message.targetViewConfig)
+          Object.assign(targetViewConfig, {
+            jumpUrl: message.targetViewConfig.jumpUrl
           })
         }
         if (message.targetViewConfig.htmlData) {
-          this.setState({
-            targetViewConfig: Object.assign({ showTargetView: true, jumpUrl: null }, message.targetViewConfig)
+          Object.assign(targetViewConfig, {
+            jumpUrl: message.targetViewConfig.htmlData
           })
         }
+        this.setState({ targetViewConfig })
       }
     }
   }
@@ -264,7 +283,7 @@ export default class App extends Component {
         ref='mainView'
         data={this.state.mainViewConfig}
         handleMessage={this._handleMessage}
-        onBackAction={this._onBackAction}
+        doAction={this._doAction}
       /> : null;
 
     // 渲染第三方webView组件
@@ -272,8 +291,7 @@ export default class App extends Component {
       <TargetViewModel
         ref='targetView'
         data={this.state.targetViewConfig}
-        onBackAction={this._onBackAction}
-        onCloseAction={this._onCloseAction}
+        doAction={this._doAction}
       /> : null;
 
     // 渲染网络组件

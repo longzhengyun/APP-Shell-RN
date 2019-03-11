@@ -14,9 +14,6 @@ const MainStyles = StyleSheet.create({
   section: {
     flex: 1
   },
-  // statusBar: {
-  //   height: Platform.OS === 'ios' ? PR * 22 : StatusBar.currentHeight
-  // },
   webView: {
     flex: 1
   }
@@ -42,6 +39,10 @@ const HeaderStyles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
     overflow: 'hidden'
+  },
+  modelIcon: {
+    width: PR * 20,
+    height: PR * 20
   },
   modelBtn: {
     position: 'absolute',

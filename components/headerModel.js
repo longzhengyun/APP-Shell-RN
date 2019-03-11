@@ -11,7 +11,17 @@ import { HeaderStyles } from './../assets/css/AppStyles';
 const HeaderModel = ({data, doAction}) => {
   return (
     <View style={[HeaderStyles.headerModel, data.showLine && HeaderStyles.headerBottomBorder]}>
-      <Text style={HeaderStyles.modelTitle}>{data.title}</Text>
+      <Text style={HeaderStyles.modelTitle}>
+        {
+          data.icon ?
+          <Image
+            style={HeaderStyles.modelIcon}
+            source={{uri: data.icon}}
+          />
+          :
+          null
+        } {data.title}
+      </Text>
       {
         data.showBack ?
         <TouchableOpacity activeOpacity={0.6} style={[HeaderStyles.modelBtn, HeaderStyles.modelBackBtn]} onPress={() => doAction('back')}>

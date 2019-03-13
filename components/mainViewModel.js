@@ -47,6 +47,8 @@ class MainViewModel extends Component {
           injectedJavaScript={patchPostMessageJsCode}
           onMessage={this.handleMessage}
           domStorageEnabled={true}
+          geolocationEnabled={true}
+          thirdPartyCookiesEnabled={true}
           bounces={false}
           useWebKit={true}
         />

@@ -41,11 +41,11 @@ export default class App extends Component {
       utmSource: Platform.OS === 'ios' ? 'ios_official' : 'android_official',
       statusBar: true,
       mainViewConfig: {
-        showMainView: false,
+        showView: false,
         headerConfig: {}
       },
       targetViewConfig: {
-        showTargetView: false,
+        showView: false,
         headerConfig: {}
       },
       route: '',
@@ -59,7 +59,7 @@ export default class App extends Component {
       this.setState({
         utmSource: channel,
         mainViewConfig: Object.assign({}, this.state.mainViewConfig, {
-          showMainView: true
+          showView: true
         })
       });
     }).catch((err) => {
@@ -164,7 +164,7 @@ export default class App extends Component {
   }
 
   _onBackAndroid() { // 安卓监听返回物理键
-    if (this.state.targetViewConfig.showTargetView || (this.state.route !== 'home' && this.state.route !== '')) {
+    if (this.state.targetViewConfig.showView || (this.state.route !== 'home' && this.state.route !== '')) {
       this._onBackAction(); // 执行回退方法
       return true; // 拦截安卓返回键回到桌面的默认操作
     }
@@ -176,12 +176,14 @@ export default class App extends Component {
     } else if (key === 'close') {
       this._onCloseAction(); // 关闭第三方webView
     } else {
-      console.log(key)
+      this._sendMessage({
+        actionResult: { key }
+      });
     }
   }
 
   _onBackAction() {
-    if (this.state.targetViewConfig.showTargetView) { // 判断第三方webView是否显示
+    if (this.state.targetViewConfig.showView) { // 判断第三方webView是否显示
       if (this.state.targetViewConfig.canGoBack) { // 判断第三方webView是否能回退
         this.refs.targetView.refs.webView.goBack(); // 回退
       } else {
@@ -195,7 +197,7 @@ export default class App extends Component {
   _onCloseAction() {
     this.setState({ // 关闭第三方webView
       targetViewConfig: Object.assign({}, this.state.targetViewConfig, {
-        showTargetView: false
+        showView: false
       })
     })
   }
@@ -206,7 +208,7 @@ export default class App extends Component {
 
   _goTarget(data) {
     let targetViewConfig = {
-      showTargetView: true,
+      showView: true,
       jumpUrl: data.jumpUrl
     }
     this.setState({ targetViewConfig });
@@ -248,7 +250,7 @@ export default class App extends Component {
       // 第三方webView配置
       if (message.targetViewConfig) {
         let targetViewConfig = {
-          showTargetView: true,
+          showView: true,
           headerConfig: {
             title: message.targetViewConfig.title,
             showBack: true,
@@ -278,7 +280,7 @@ export default class App extends Component {
       <StatusBar animated={true} backgroundColor={'transparent'} barStyle={'light-content'} translucent={true} />;
 
     // 渲染主webView组件
-    const MainViewComponent = this.state.mainViewConfig.showMainView && !this.state.noNetwork ?
+    const MainViewComponent = this.state.mainViewConfig.showView && !this.state.noNetwork ?
       <MainViewModel
         ref='mainView'
         data={this.state.mainViewConfig}
@@ -287,7 +289,7 @@ export default class App extends Component {
       /> : null;
 
     // 渲染第三方webView组件
-    const TargetViewComponent = this.state.targetViewConfig.showTargetView && !this.state.noNetwork ?
+    const TargetViewComponent = this.state.targetViewConfig.showView && !this.state.noNetwork ?
       <TargetViewModel
         ref='targetView'
         data={this.state.targetViewConfig}

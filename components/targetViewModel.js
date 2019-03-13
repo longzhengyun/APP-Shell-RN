@@ -30,6 +30,8 @@ class TargetViewModel extends Component {
           source={{ html: this.data.htmlData, uri: this.data.jumpUrl, method: 'GET', headers: { Referer: AppConfig.origin } }}
           style={MainStyles.webView}
           domStorageEnabled={true}
+          geolocationEnabled={true}
+          thirdPartyCookiesEnabled={true}
           bounces={false}
           useWebKit={true}
         />

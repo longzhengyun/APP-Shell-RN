@@ -7,14 +7,14 @@ const updateOrigin = ``
 
 // 相关配置
 const AppConfig = {
-  apiOrigin,
-  origin
+    apiOrigin,
+    origin
 };
 
 // 更新配置
 const BundleConfig = {
-  version,
-  updateOrigin
+    version,
+    updateOrigin
 }
 
 export { AppConfig, BundleConfig }
